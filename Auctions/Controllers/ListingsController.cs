@@ -29,7 +29,7 @@ namespace Auctions.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        /*
+        
 
         // GET: Listings/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -39,9 +39,7 @@ namespace Auctions.Controllers
                 return NotFound();
             }
 
-            var listing = await _context.Listings
-                .Include(l => l.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var listing = await _listingsService.GetById(id);
             if (listing == null)
             {
                 return NotFound();
@@ -50,7 +48,6 @@ namespace Auctions.Controllers
             return View(listing);
         }
 
-        */
 
         // GET: Listings/Create
         public IActionResult Create()
@@ -77,10 +74,17 @@ namespace Auctions.Controllers
                     listing.Image.CopyTo(fileStream);
                 }
 
-                var listObj = new Listing();
-                { }
+                var listObj = new Listing
+                {
+                    Title = listing.Title,
+                    Description = listing.Description,
+                    Price = listing.Price,
+                    IdentityUserId = listing.IdentityUserId,
+                    ImagePath = fileName,
+                };
+                await _listingsService.Add(listObj);
+                return RedirectToAction("Index");
            }
-           ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", listing.IdentityUserId);
            return View(listing);
        }
 
