@@ -114,6 +114,12 @@ namespace Auctions.Controllers
         public async Task<ActionResult> CloseBidding(int id)
         {
             var listing = await _listingsService.GetById(id);
+
+            if (listing == null)
+            {
+                return NotFound();
+            }
+
             listing.IsSold = true;
             await _listingsService.SaveChanges();
             return View("Details", listing);
