@@ -19,4 +19,25 @@ html {
 
 body {
   margin-bottom: 60px;
+  padding:10px;
+  background-color:aliceblue;
 }
+
+nav {
+    background-color:#39c6e3;
+    border-radius: 10px;
+}
+.nav-link {
+    color: white;
+    padding-left: 30px !important;
+}
+.nav-link:hover {
+    color: #bbf2fc;
+}
+.navbar-brand {
+    color: white;
+    padding-left:20px;
+}
+.navbar-brand:hover {
+        color: #bbf2fc;
+    }
