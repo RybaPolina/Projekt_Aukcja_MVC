@@ -39,5 +39,21 @@ namespace Auctions.Data.Services
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task Update(Listing listing)
+        {
+            _context.Listings.Update(listing);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var listing = await _context.Listings.FindAsync(id);
+            if (listing != null)
+            {
+                _context.Listings.Remove(listing);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
